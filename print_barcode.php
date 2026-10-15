@@ -4,6 +4,100 @@
 require_once 'includes/auth.php';
 require_once 'config/database.php';
 
+
+// Barcode print settings are stored separately from per-purchase print quantities.
+$barcodeSettingsDefaults = [
+    'label_width' => 36,
+    'label_height' => 25,
+    'barcode_height' => 10,
+    'barcode_width' => 1,
+    'labels_per_row' => 2,
+    'content_fields' => [
+        ['id' => 'shop', 'label' => 'Shop Name', 'enabled' => true],
+        ['id' => 'name', 'label' => 'Product Name', 'enabled' => true],
+        ['id' => 'price', 'label' => 'Price', 'enabled' => true],
+        ['id' => 'barcode', 'label' => 'Barcode Image', 'enabled' => true],
+        ['id' => 'barcodeId', 'label' => 'Barcode ID', 'enabled' => true],
+    ],
+];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_barcode_settings') {
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $allowedFieldIds = ['shop', 'name', 'price', 'barcode', 'barcodeId'];
+        $postedFields = json_decode($_POST['content_fields'] ?? '[]', true);
+        if (!is_array($postedFields)) {
+            throw new RuntimeException('Invalid content settings.');
+        }
+        $cleanFields = [];
+        foreach ($postedFields as $field) {
+            if (!is_array($field) || !in_array($field['id'] ?? '', $allowedFieldIds, true)) continue;
+            $cleanFields[] = [
+                'id' => $field['id'],
+                'label' => (string)($field['label'] ?? ''),
+                'enabled' => filter_var($field['enabled'] ?? false, FILTER_VALIDATE_BOOLEAN),
+            ];
+        }
+        $labelWidth = min(150, max(15, (float)($_POST['label_width'] ?? 36)));
+        $labelHeight = min(100, max(10, (float)($_POST['label_height'] ?? 25)));
+        $barcodeHeight = min(20, max(5, (float)($_POST['barcode_height'] ?? 10)));
+        $barcodeWidth = min(3, max(0.5, (float)($_POST['barcode_width'] ?? 1)));
+        $labelsPerRow = min(3, max(1, (int)($_POST['labels_per_row'] ?? 2)));
+
+        $stmt = $pdo->prepare("
+            INSERT INTO barcode_print_settings
+                (id, label_width, label_height, barcode_height, barcode_width, labels_per_row, content_fields)
+            VALUES (1, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE
+                label_width = VALUES(label_width),
+                label_height = VALUES(label_height),
+                barcode_height = VALUES(barcode_height),
+                barcode_width = VALUES(barcode_width),
+                labels_per_row = VALUES(labels_per_row),
+                content_fields = VALUES(content_fields)
+        ");
+        $stmt->execute([
+            $labelWidth, $labelHeight, $barcodeHeight, $barcodeWidth,
+            $labelsPerRow, json_encode($cleanFields, JSON_UNESCAPED_UNICODE)
+        ]);
+        echo json_encode(['success' => true, 'message' => 'Barcode settings saved.']);
+    } catch (Throwable $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Could not save settings. Confirm the barcode_print_settings table has been created.']);
+    }
+    exit;
+}
+
+$barcodeSavedSettings = $barcodeSettingsDefaults;
+try {
+    $stmt = $pdo->query("SELECT * FROM barcode_print_settings WHERE id = 1 LIMIT 1");
+    $savedRow = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($savedRow) {
+        foreach (['label_width', 'label_height', 'barcode_height', 'barcode_width', 'labels_per_row'] as $key) {
+            if (isset($savedRow[$key]) && is_numeric($savedRow[$key])) {
+                $barcodeSavedSettings[$key] = (float)$savedRow[$key];
+            }
+        }
+        $savedFields = json_decode($savedRow['content_fields'] ?? '', true);
+        if (is_array($savedFields) && count($savedFields)) {
+            $allowedFieldIds = ['shop', 'name', 'price', 'barcode', 'barcodeId'];
+            $cleanFields = [];
+            foreach ($savedFields as $field) {
+                if (is_array($field) && in_array($field['id'] ?? '', $allowedFieldIds, true)) {
+                    $cleanFields[] = [
+                        'id' => $field['id'],
+                        'label' => (string)($field['label'] ?? ''),
+                        'enabled' => filter_var($field['enabled'] ?? false, FILTER_VALIDATE_BOOLEAN),
+                    ];
+                }
+            }
+            if ($cleanFields) $barcodeSavedSettings['content_fields'] = $cleanFields;
+        }
+    }
+} catch (Throwable $e) {
+    // Create the barcode_print_settings table once using the SQL instructions.
+}
+
 $purchase_id = (int)($_GET['purchase_id'] ?? 0);
 
 if ($purchase_id <= 0) {
@@ -348,17 +442,17 @@ button {
         <div class="settings-grid">
             <div>
                 <label for="labelWidth">Label Width (mm)</label>
-                <input id="labelWidth" type="number" min="15" max="150" step="0.5" value="36">
+                <input id="labelWidth" type="number" min="15" max="150" step="0.5" value="<?= htmlspecialchars((string)$barcodeSavedSettings['label_width']) ?>">
             </div>
 
             <div>
                 <label for="labelHeight">Label Height (mm)</label>
-                <input id="labelHeight" type="number" min="10" max="100" step="0.5" value="25">
+                <input id="labelHeight" type="number" min="10" max="100" step="0.5" value="<?= htmlspecialchars((string)$barcodeSavedSettings['label_height']) ?>">
             </div>
 
             <div>
                 <label for="barcodeHeight">Barcode Height (mm)</label>
-                <input id="barcodeHeight" type="number" min="5" max="20" step="0.5" value="10">
+                <input id="barcodeHeight" type="number" min="5" max="20" step="0.5" value="<?= htmlspecialchars((string)$barcodeSavedSettings['barcode_height']) ?>">
             </div>
 
             <div>
@@ -369,16 +463,16 @@ button {
         min="0.5"
         max="3"
         step="0.1"
-        value="1"
+        value="<?= htmlspecialchars((string)$barcodeSavedSettings['barcode_width']) ?>"
     >
 </div>
 
             <div>
     <label for="labelsPerRow">Labels Per Row</label>
     <select id="labelsPerRow">
-        <option value="1">1 Label</option>
-        <option value="2" selected>2 Labels</option>
-        <option value="3">3 Labels</option>
+        <option value="1" <?= (int)$barcodeSavedSettings['labels_per_row'] === 1 ? 'selected' : '' ?>>1 Label</option>
+        <option value="2" <?= (int)$barcodeSavedSettings['labels_per_row'] === 2 ? 'selected' : '' ?>>2 Labels</option>
+        <option value="3" <?= (int)$barcodeSavedSettings['labels_per_row'] === 3 ? 'selected' : '' ?>>3 Labels</option>
     </select>
 </div>
         </div>
@@ -426,6 +520,7 @@ button {
 
     <div class="actions">
         <button type="button" class="primary" id="previewButton">Update Preview</button>
+        <button type="button" class="secondary" id="saveSettingsButton">Save Settings as Default</button>
         <button type="button" class="secondary" id="printButton">Print Barcodes</button>
         <button type="button" class="secondary" onclick="window.close()">Close Window</button>
     </div>
@@ -450,13 +545,10 @@ const companyName = <?= json_encode(
     JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 ) ?>;
 
-const contentFields = [
-    { id: 'shop', label: 'Shop Name', enabled: true },
-    { id: 'name', label: 'Product Name', enabled: true },
-    { id: 'price', label: 'Price', enabled: true },
-    { id: 'barcode', label: 'Barcode Image', enabled: true },
-    { id: 'barcodeId', label: 'Barcode ID', enabled: true }
-];
+let contentFields = <?= json_encode(
+    $barcodeSavedSettings['content_fields'],
+    JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
+) ?>;
 
 function renderContentSettings() {
     const container = document.getElementById('contentSettings');
@@ -485,7 +577,7 @@ function renderContentSettings() {
         const up = document.createElement('button');
         up.type = 'button';
         up.className = 'secondary';
-        up.textContent = '↑';
+        up.textContent = 'â†‘';
         up.disabled = index === 0;
         up.addEventListener('click', () => {
             [contentFields[index - 1], contentFields[index]] =
@@ -498,7 +590,7 @@ function renderContentSettings() {
         const down = document.createElement('button');
         down.type = 'button';
         down.className = 'secondary';
-        down.textContent = '↓';
+        down.textContent = 'â†“';
         down.disabled = index === contentFields.length - 1;
         down.addEventListener('click', () => {
             [contentFields[index + 1], contentFields[index]] =
@@ -624,7 +716,7 @@ function createLabel(product, settings, isPrint) {
                         format: 'CODE128',
                         displayValue: false,
                         textMargin: 0,
-                        margin: 0,
+                        margin: 5,
                         height: Math.max(
                             18,
                             settings.barcodeHeight * 3
@@ -749,18 +841,49 @@ function preparePrint() {
 document.getElementById('previewButton').addEventListener('click', renderPreview);
 document.getElementById('printButton').addEventListener('click', preparePrint);
 
-[widthInput, heightInput, barcodeHeightInput].forEach(input => {
+document.getElementById('saveSettingsButton').addEventListener('click', async () => {
+    const button = document.getElementById('saveSettingsButton');
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Saving...';
+
+    const formData = new URLSearchParams({
+        action: 'save_barcode_settings',
+        label_width: widthInput.value,
+        label_height: heightInput.value,
+        barcode_height: barcodeHeightInput.value,
+        barcode_width: document.getElementById('barcodeWidth').value,
+        labels_per_row: document.getElementById('labelsPerRow').value,
+        content_fields: JSON.stringify(contentFields)
+    });
+
+    try {
+        const response = await fetch(window.location.href, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formData.toString()
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || 'Unable to save settings.');
+        }
+        alert('Barcode settings saved as default.');
+    } catch (error) {
+        alert(error.message || 'Unable to save settings. Please check the database table.');
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+});
+
+[widthInput, heightInput, barcodeHeightInput, document.getElementById('barcodeWidth'),
+ document.getElementById('labelsPerRow')].forEach(input => {
     input.addEventListener('change', renderPreview);
+    input.addEventListener('input', renderPreview);
 });
 
 document.querySelectorAll('.quantity-input').forEach(input => {
     input.addEventListener('change', renderPreview);
-
-    document.getElementById('labelsPerRow')
-    .addEventListener('change', renderPreview);
-
-    document.getElementById('barcodeWidth')
-    .addEventListener('input', renderPreview);
 });
 renderContentSettings();
 renderPreview();
