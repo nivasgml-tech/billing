@@ -1,0 +1,120 @@
+[01-May-2026 09:13:42 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'SET' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:63
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(63): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 63
+[01-May-2026 09:13:52 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'SET' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:63
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(63): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 63
+[01-May-2026 09:16:34 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'INSERT INTO' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:41
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(41): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 41
+[01-May-2026 09:17:07 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'INSERT INTO' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:41
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(41): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 41
+[01-May-2026 09:17:20 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'INSERT INTO' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:41
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(41): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 41
+[01-May-2026 09:17:53 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'INSERT INTO' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:41
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(41): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 41
+[01-May-2026 09:18:00 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'salary' in 'INSERT INTO' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php:41
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php(41): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/user_action.php on line 41
+[04-May-2026 11:03:59 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:05:09 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:05:56 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:08:29 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:08:59 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:09:16 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:12:08 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:13:37 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:22:32 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:22:48 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:23:22 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:27:10 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 11:27:19 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 12:05:05 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[04-May-2026 12:17:11 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[05-May-2026 13:51:38 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
+[12-May-2026 15:53:08 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'unique_phone' in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php:37
+Stack trace:
+#0 /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php(37): PDOStatement->execute()
+#1 {main}
+  thrown in /home/je0rug728oea/public_html/furniture.2bsoftwares.com/ajax/customer_action.php on line 37
