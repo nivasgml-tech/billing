@@ -37,9 +37,18 @@ $sale_price = (float)($_POST['sale_price'] ?? 0.00);
 $min_stock_alert = (int)($_POST['min_stock_alert'] ?? 0);
 $status = (int)($_POST['status'] ?? 1);
 
-// Generate barcode if empty
+
+/* Generate a unique 8-digit numeric barcode if empty */
 if (empty($barcode)) {
-    $barcode = 'PRD' . time() . rand(10, 99);
+    do {
+        $barcode = (string) random_int(10000000, 99999999);
+
+        $checkBarcode = $pdo->prepare(
+            "SELECT id FROM products WHERE barcode = ? LIMIT 1"
+        );
+        $checkBarcode->execute([$barcode]);
+
+    } while ($checkBarcode->fetchColumn());
 }
 
 // Validation

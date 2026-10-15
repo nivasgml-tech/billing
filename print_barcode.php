@@ -577,7 +577,7 @@ function renderContentSettings() {
         const up = document.createElement('button');
         up.type = 'button';
         up.className = 'secondary';
-        up.textContent = 'â†‘';
+up.textContent = '↑';
         up.disabled = index === 0;
         up.addEventListener('click', () => {
             [contentFields[index - 1], contentFields[index]] =
@@ -590,7 +590,7 @@ function renderContentSettings() {
         const down = document.createElement('button');
         down.type = 'button';
         down.className = 'secondary';
-        down.textContent = 'â†“';
+        down.textContent = '↓';
         down.disabled = index === contentFields.length - 1;
         down.addEventListener('click', () => {
             [contentFields[index + 1], contentFields[index]] =
